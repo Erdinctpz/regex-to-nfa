@@ -67,10 +67,7 @@ class RegexToNFA:
             elif symbol == '.':
                 prev_nfa2 = self.stack.pop()
                 prev_nfa1 = self.stack.pop()
-                if f'{prev_nfa1.final_states}' not in self.transitions:
-                    self.transitions[f'{prev_nfa1.final_states}'] = {'ε': [f'{prev_nfa2.start_state}']}
-                else:
-                    self.transitions[f'{prev_nfa1.final_states}']['ε'].append(f'{prev_nfa2.start_state}')
+                self.transitions[f'{prev_nfa1.final_states}'] = {'ε': [f'{prev_nfa2.start_state}']}
                 sub_nfa = SubNFA(start_state=prev_nfa1.start_state, final_states=prev_nfa2.final_states)
                 self.stack.append(sub_nfa)
         
